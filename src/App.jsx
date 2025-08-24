@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-
 import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage'; // Import SignUpPage
+import ForgotPasswordPage from './pages/ForgotPasswordPage'; // Import ForgotPasswordPage
 import DashboardLayout from './pages/DashboardLayout';
 
 function App() {
@@ -11,8 +12,10 @@ function App() {
         <AuthProvider>
             <Router>
                 <Routes>
-                    {/* Public Route */}
+                    {/* Public Routes */}
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
                     {/* Protected Route */}
                     <Route
