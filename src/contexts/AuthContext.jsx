@@ -1,10 +1,5 @@
-// ===============================================================
-// src/contexts/AuthContext.jsx
-// ===============================================================
-// This context will provide user authentication state to your entire app.
-
 import React, { createContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../firebase';
 
 export const AuthContext = createContext();
@@ -25,6 +20,11 @@ export const AuthProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    // Add this new function
+    const resetPassword = (email) => {
+        return sendPasswordResetEmail(auth, email);
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             setCurrentUser(user);
@@ -38,7 +38,8 @@ export const AuthProvider = ({ children }) => {
         currentUser,
         signup,
         login,
-        logout
+        logout,
+        resetPassword // Export the new function
     };
 
     return (
