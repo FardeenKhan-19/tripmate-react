@@ -88,8 +88,8 @@ To get a local copy up and running, follow these simple steps :-
 
 This project's development is distributed among a team of four, with each member leading a critical component of the application.
 
-$ Khan Fardeen Firoz (Technical, Authentication & UI Kit Lead): Responsible for setting up the entire project foundation, including the Firebase backend, React app structure and all user authentication flows along with building the shared component library.
+* Khan Fardeen Firoz (Technical, Authentication & UI Kit Lead): Responsible for setting up the entire project foundation, including the Firebase backend, React app structure and all user authentication flows along with building the shared component library.
 
-$ Shah Sufiyan Javed (Dashboard & Core Features Lead): Responsible for creating the main application shell &  building the data-heavy Itinerary and Expenses pages and their Firestore integrations.
+* Shah Sufiyan Javed (Dashboard & Core Features Lead): Responsible for creating the main application shell &  building the data-heavy Itinerary and Expenses pages and their Firestore integrations.
 
-$ Shaikh Afrah Rafiq (AI & Recommendations Lead): Responsible for integrating the Google Gemini API and building the AI Assistant feature.
+* Shaikh Afrah Rafiq (AI & Recommendations Lead): Responsible for integrating the Google Gemini API and building the AI Assistant feature.
