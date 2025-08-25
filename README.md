@@ -57,32 +57,32 @@ To get a local copy up and running, follow these simple steps :-
 
 *  Prerequisites
 
-   --> Node.js (v18 or later)
-    -->npm
+       --> Node.js (v18 or later)
+       -->npm
 
 *  Installation & Setup
 
- -->   Clone the repository:
-    
- -->  git clone https://github.com/FardeenKhan-19/tripmate-react.git
-    
- -->   Navigate to the project directory:
-    
- -->   cd tripmate-react
+     -->   Clone the repository:
+        
+     -->  git clone https://github.com/FardeenKhan-19/tripmate-react.git
+        
+     -->   Navigate to the project directory:
+        
+     -->   cd tripmate-react
 
 *  Install NPM packages:
 
-    npm install
+        npm install
 
 *  Set up Firebase:
 
-    Create a .env file in the root of the project.
-    
-    Add your Firebase configuration details to the .env file.
+        Create a .env file in the root of the project.
+        
+        Add your Firebase configuration details to the .env file.
 
 *  Run the development server:
 
-    npm run dev
+        npm run dev
 
 👥 Team Roles & Responsibilities :-
 
