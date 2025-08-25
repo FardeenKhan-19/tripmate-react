@@ -89,6 +89,7 @@ npm run dev
 This project's development is distributed among a team of four, with each member leading a critical component of the application.
 
 Member 1 (Authentication & UI Kit Lead): Responsible for all user authentication flows and building the shared component library.
+
 Member 2 (Dashboard & Layout Lead): Responsible for creating the main application shell, including the sidebar and header.
 
 Member 3 (Core Features Lead): Responsible for building the data-heavy Itinerary and Expenses pages and their Firestore integrations.
