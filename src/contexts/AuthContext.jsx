@@ -1,7 +1,14 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } from 'firebase/auth';
+import React, { useState, useEffect, createContext, useContext } from 'react';
+import {
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    sendPasswordResetEmail,
+} from 'firebase/auth';
 import { auth } from '../firebase';
 
+// AuthContext ko yahan export karein taaki useAuth hook isse access kar sake
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -20,17 +27,15 @@ export const AuthProvider = ({ children }) => {
         return signOut(auth);
     };
 
-    // Add this new function
     const resetPassword = (email) => {
         return sendPasswordResetEmail(auth, email);
     };
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, user => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user);
             setLoading(false);
         });
-
         return unsubscribe;
     }, []);
 
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         login,
         logout,
-        resetPassword // Export the new function
+        resetPassword,
     };
 
     return (
