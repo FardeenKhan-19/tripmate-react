@@ -9,7 +9,8 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
     palette: {
         mode: 'light',
-        primary: {
+        primary:
+            {
             main: '#8B5CF6', // A vibrant violet for primary actions
         },
         secondary: {

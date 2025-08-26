@@ -73,8 +73,6 @@ const ForgotPasswordPage = () => {
     return (
         <Box sx={{
             minHeight: '100vh', width: '100vw', position: 'relative', overflow: 'hidden',
-            // --- UPDATED BACKGROUND ---
-            // A semi-transparent gradient is applied over the image to maintain the color theme
             backgroundImage: 'linear-gradient(to bottom right, rgba(76, 29, 149, 0.8), rgba(49, 46, 129, 0.8), rgba(190, 24, 93, 0.8)), url(https://img.freepik.com/free-vector/realistic-travel-background-with-elements_52683-77784.jpg?q=80&w=2070&auto=format&fit=crop)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -102,7 +100,7 @@ const ForgotPasswordPage = () => {
                         {message && <Alert severity="success" sx={{ width: '100%', mb: 2, backgroundColor: 'rgba(100, 255, 100, 0.2)', color: 'white' }}>{message}</Alert>}
 
                         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, width: '100%' }}>
-                            <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus value={email} onChange={(e) => setEmail(e.target.value)} variant="outlined" InputLabelProps={{ sx: { color: 'rgba(255, 255, 255, 0.7)' } }} sx={{ '& .MuiOutlinedInput-root': { backgroundColor: 'rgba(255,255,255,0.2)', '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'white' }, '& input': { color: 'white' } } }} />
+                            <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" autoFocus value={email} onChange={(e) => setEmail(e.target.value)} variant="outlined" InputLabelProps={{ sx: { color: 'rgba(255, 255, 255, 0.7)' } }} sx={{ '& .MuiOutlinedInput-root': { backgroundColor: 'rgba(255,255,255,0.2)', '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' }, '&:hover fieldset': { borderColor: 'white' }, '&.Mui-focused fieldset': { borderColor: 'white' }, '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white' }, '& input': { color: 'white' } }, '& .MuiInputLabel-root.Mui-focused': { color: 'white' } }} />
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2, py: 1.5, backgroundColor: 'white', color: '#4c1d95', fontWeight: 'bold', '&:hover': { backgroundColor: '#f0f0f0' } }} disabled={loading}>
                                     {loading ? <CircularProgress size={24} sx={{ color: '#4c1d95' }} /> : 'Send Reset Link'}
