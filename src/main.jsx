@@ -4,7 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { theme } from './theme'; // Import your custom theme
+import  theme  from './theme'; // Import your custom theme
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

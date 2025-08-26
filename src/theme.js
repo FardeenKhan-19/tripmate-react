@@ -1,41 +1,75 @@
-// ===============================================================
-// 1. UPDATE THIS FILE: src/theme.js
-// ===============================================================
-// This file defines the color palette, typography, and overall
-// look and feel for your entire application.
-
 import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme({
-    palette: {
-        mode: 'light',
-        primary: {
-            main: '#8B5CF6', // A vibrant violet for primary actions
-        },
-        secondary: {
-            main: '#6D28D9', // A deeper violet for secondary elements
-        },
-        background: {
-            default: '#F5F3FF', // A very light lavender for the page background
-            paper: '#FFFFFF',   // White for cards and surfaces
-        },
+// Let's define the color palette based on your login screen
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#673ab7', // A nice deep purple
+      light: '#9575cd',
+      dark: '#512da8',
     },
-    typography: {
-        fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-        h1: {
-            fontSize: '2.5rem',
-            fontWeight: 700,
+    secondary: {
+      main: '#f50057', // A vibrant pink for accents
+    },
+    background: {
+      default: '#f4f6f8', // A light grey for the main background
+      paper: '#ffffff',    // White for cards and surfaces
+    },
+    text: {
+      primary: '#333333',
+      secondary: '#757575',
+    },
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    h4: {
+      fontWeight: 700,
+    },
+    h5: {
+      fontWeight: 600,
+    },
+  },
+  components: {
+    // Styling for all buttons
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+          textTransform: 'none',
+          fontWeight: 600,
         },
-        h2: {
-            fontSize: '2rem',
-            fontWeight: 600,
-        },
-        button: {
-            textTransform: 'none', // Buttons will use normal case, not all-caps
-            fontWeight: 600,
+        containedPrimary: {
+          color: '#ffffff',
         }
+      },
     },
-    shape: {
-        borderRadius: 7, // A modern, slightly rounded corner for a rectangular feel
+    // Styling for all cards
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: '16px',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+        },
+      },
     },
+    // Styling for all paper surfaces
+    MuiPaper: {
+        styleOverrides: {
+          root: {
+            borderRadius: '16px',
+          },
+        },
+      },
+    // Styling for the App Bar
+    MuiAppBar: {
+        styleOverrides: {
+            root: {
+                boxShadow: 'none',
+                borderBottom: '1px solid #e0e0e0'
+            }
+        }
+    }
+  },
 });
+
+export default theme;
