@@ -62,13 +62,13 @@ To get a local copy up and running, follow these simple steps :-
 
 *  Installation & Setup
 
-     -->   Clone the repository:
-        
-     -->  git clone https://github.com/FardeenKhan-19/tripmate-react.git
-        
-     -->   Navigate to the project directory:
-        
-     -->   cd tripmate-react
+       -->   Clone the repository:
+          
+       -->  git clone https://github.com/FardeenKhan-19/tripmate-react.git
+          
+       -->   Navigate to the project directory:
+          
+       -->   cd tripmate-react
 
 *  Install NPM packages:
 
