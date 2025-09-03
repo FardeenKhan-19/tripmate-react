@@ -29,7 +29,7 @@ export default function ExpensesPage() {
   const [currentExpense, setCurrentExpense] = useState(null);
   const [expenseToDelete, setExpenseToDelete] = useState(null);
   const [overBudgetAlert, setOverBudgetAlert] = useState(false);
-  const [dateError, setDateError] = useState(false); // Date error ke liye state
+  const [dateError, setDateError] = useState(false);
 
   useEffect(() => {
     if (currentUser && tripId) {
@@ -61,35 +61,47 @@ export default function ExpensesPage() {
     return { totalSpent: total, chartData: data, budgetProgress: progress };
   }, [expenses, tripDetails]);
 
+  // === FIX STARTS HERE ===
   const handleSave = async (expenseData) => {
-    // === FIX STARTS HERE ===
-    // Step 1: Date validation
     const expenseDate = new Date(expenseData.date);
     const startDate = new Date(tripDetails.startDate);
     const endDate = new Date(tripDetails.endDate);
-
-    // Add one day to endDate to make it inclusive
     endDate.setDate(endDate.getDate() + 1);
 
     if (expenseDate < startDate || expenseDate > endDate) {
       setDateError(true);
-      return; // Save hone se rokein
+      return;
     }
-    // === FIX ENDS HERE ===
 
     try {
+      const isEditMode = Boolean(expenseData.id);
       await firestoreService.saveExpense(currentUser.uid, tripId, expenseData);
       setIsModalOpen(false);
 
-      const newTotal = totalSpent + Number(expenseData.amount);
+      // Naya total aapse calculate karein
+      let newTotal;
+      if (isEditMode) {
+        // Edit ke liye: purana amount hatayein aur naya add karein
+        const oldAmount = currentExpense ? Number(currentExpense.amount) : 0;
+        newTotal = totalSpent - oldAmount + Number(expenseData.amount);
+      } else {
+        // Add ke liye: sirf naya amount add karein
+        newTotal = totalSpent + Number(expenseData.amount);
+      }
+
+      // Ab aapse check karein ki budget over hua ya nahi
       if (tripDetails && newTotal > tripDetails.budget) {
-        setOverBudgetAlert(true);
+        // Alert ko sirf tabhi dikhayein jab pehle se nahi dikh raha ho
+        if (!overBudgetAlert) {
+            setOverBudgetAlert(true);
+        }
       }
 
     } catch (error) {
       console.error("Error saving expense:", error);
     }
   };
+  // === FIX ENDS HERE ===
 
   const handleOpenModal = (expense = null) => {
     setCurrentExpense(expense || { description: '', amount: '', category: 'Other', date: '' });
@@ -154,7 +166,6 @@ export default function ExpensesPage() {
       {isModalOpen && <ExpenseForm expense={currentExpense} onSave={handleSave} onClose={() => setIsModalOpen(false)} tripCurrency={tripDetails?.currency} />}
       {expenseToDelete && <ConfirmationModal open={!!expenseToDelete} onClose={() => setExpenseToDelete(null)} onConfirm={confirmDelete} title="Confirm Deletion" message={`Delete "${expenseToDelete.description}"?`} />}
       <AlertDialog open={overBudgetAlert} onClose={() => setOverBudgetAlert(false)} title="Budget Exceeded" message="You have gone over your budget for this trip." />
-      {/* Date error pop-up */}
       <AlertDialog open={dateError} onClose={() => setDateError(false)} title="Invalid Date" message={`Please select a date between ${tripDetails?.startDate} and ${tripDetails?.endDate}.`} />
     </Box>
   );

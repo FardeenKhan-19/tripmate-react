@@ -1,26 +1,24 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Paper, Typography, Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF1943'];
+// Pie chart ke liye alag-alag colors
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
-const ExpensesPieChart = ({ data }) => {
-  if (!data || data.length === 0) {
+export default function ExpensesPieChart({ data }) {
+    if (!data || data.length === 0) {
+        return (
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                <Typography color="text.secondary">
+                    Add some expenses to see the chart.
+                </Typography>
+            </Box>
+        );
+    }
+
     return (
-        <Paper elevation={3} sx={{ p: 4, textAlign: 'center', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Typography variant="h6">No Expense Data</Typography>
-            <Typography variant="body2" color="text.secondary">Add some expenses to see the chart.</Typography>
-        </Paper>
-    );
-  }
-
-  return (
-    <Paper elevation={3} sx={{ p: 2, height: '100%', width :'350%' ,display: 'flex', flexDirection: 'column' }}>
-        <Typography variant="h6" component="h3" sx={{ mb: 1, textAlign: 'center', flexShrink: 0 }}>
-            Expenses by Category
-        </Typography>
-        <Box sx={{ flexGrow: 1, width: '100%', height: '100%' }}>
-            <ResponsiveContainer width="100%" height="100%">
+        <Box sx={{ width: '100%', height: '100%', minHeight: 300 , minWidth: 800 }}>
+            <ResponsiveContainer>
                 <PieChart>
                     <Pie
                         data={data}
@@ -37,13 +35,10 @@ const ExpensesPieChart = ({ data }) => {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
-                    <Tooltip formatter={(value, name) => [`$${value.toFixed(2)}`, name]} />
+                    <Tooltip formatter={(value) => `$${value.toFixed(2)}`} />
                     <Legend />
                 </PieChart>
             </ResponsiveContainer>
         </Box>
-    </Paper>
-  );
-};
-
-export default ExpensesPieChart;
+    );
+}
