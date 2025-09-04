@@ -2,10 +2,11 @@ import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Box, Typography } from '@mui/material';
 
-// Pie chart ke liye alag-alag colors
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF'];
 
-export default function ExpensesPieChart({ data }) {
+// Hum yahan 'currencySymbol' ko as a prop le rahe hain.
+// Default value '₹' set kar di hai taaki agar prop na mile toh error na aaye.
+export default function ExpensesPieChart({ data, currencySymbol = '₹' }) {
     if (!data || data.length === 0) {
         return (
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
@@ -35,7 +36,8 @@ export default function ExpensesPieChart({ data }) {
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
-                    <Tooltip formatter={(value) => `$${value.toFixed(2)}`} />
+                    {/* YAHAN HUMNE '$' KI JAGAH DYNAMIC 'currencySymbol' PROP USE KIYA HAI */}
+                    <Tooltip formatter={(value) => `${currencySymbol}${value.toFixed(2)}`} />
                     <Legend />
                 </PieChart>
             </ResponsiveContainer>
