@@ -8,18 +8,18 @@ import { useAuth } from '../hooks/useAuth.js';
 import ItineraryForm from '../components/ItineraryForm.jsx';
 import Timeline from '../components/ui/Timeline.jsx';
 import ConfirmationModal from '../components/ui/ConfirmationModal.jsx';
-import AlertDialog from '../components/ui/AlertDialog.jsx'; // Alert ke liye
+import AlertDialog from '../components/ui/AlertDialog.jsx';
 
 export default function ItineraryPage() {
   const { tripId } = useParams();
   const { currentUser } = useAuth();
   const [items, setItems] = useState([]);
-  const [tripDetails, setTripDetails] = useState(null); // Trip details ke liye state
+  const [tripDetails, setTripDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const [dateError, setDateError] = useState(false); // Date error ke liye state
+  const [dateError, setDateError] = useState(false);
 
   useEffect(() => {
     if (currentUser && tripId) {
@@ -33,6 +33,7 @@ export default function ItineraryPage() {
       );
       
       const fetchTripDetails = async () => {
+        setIsLoading(true);
         const details = await firestoreService.getTripDetails(currentUser.uid, tripId);
         setTripDetails(details);
         setIsLoading(false);
@@ -49,14 +50,14 @@ export default function ItineraryPage() {
   };
 
   const handleSaveItem = async (itemData) => {
-    // Date validation logic
     const itemDate = new Date(itemData.date);
     const startDate = new Date(tripDetails.startDate);
     const endDate = new Date(tripDetails.endDate);
+    endDate.setDate(endDate.getDate() + 1);
 
     if (itemDate < startDate || itemDate > endDate) {
       setDateError(true);
-      return; // Save hone se rokein
+      return;
     }
 
     try {
@@ -95,11 +96,16 @@ export default function ItineraryPage() {
             </Box>
             <Button variant="contained" disableElevation startIcon={<AddCircleOutlineIcon />} onClick={() => handleOpenModal()}>Add Item</Button>
         </Box>
-        {items.length === 0 ? (
+        
+        {/* === FIX STARTS HERE === */}
+        {/* Hum check karenge ki tripDetails load ho chuke hain, uske baad hi Timeline dikhayenge */}
+        {tripDetails && items.length === 0 ? (
             <Box sx={{ textAlign: 'center', mt: 8 }}><Typography color="text.secondary">No itinerary items yet.</Typography></Box>
         ) : (
-            <Timeline items={items} onEdit={handleOpenModal} onDelete={handleDeleteRequest} />
+            tripDetails && <Timeline items={items} onEdit={handleOpenModal} onDelete={handleDeleteRequest} tripStartDate={tripDetails.startDate} />
         )}
+        {/* === FIX ENDS HERE === */}
+
         {isModalOpen && <ItineraryForm item={currentItem} onSave={handleSaveItem} onClose={() => setIsModalOpen(false)} />}
         {itemToDelete && <ConfirmationModal open={!!itemToDelete} onClose={() => setItemToDelete(null)} onConfirm={confirmDelete} title="Confirm Deletion" message={`Delete "${itemToDelete.event}"?`} />}
         <AlertDialog open={dateError} onClose={() => setDateError(false)} title="Invalid Date" message={`Please select a date between ${tripDetails?.startDate} and ${tripDetails?.endDate}.`} />
